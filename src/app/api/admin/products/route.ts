@@ -1,5 +1,4 @@
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+import { createClient } from '@/utils/supabase/server';
 import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
@@ -8,7 +7,7 @@ type Product = {
   id?: string;
   name: string;
   price: number;
-  category: string;
+  category_id: string;
   description?: string;
   image_url?: string;
   is_available: boolean;
@@ -18,11 +17,11 @@ type Product = {
 
 export async function GET() {
   try {
-    const supabase = createRouteHandlerClient({ cookies });
+    const supabase = createClient();
     
     // Check if user is admin
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
       return NextResponse.json(
         { error: 'Neautorizat' },
         { status: 401 }
@@ -48,10 +47,10 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const supabase = createRouteHandlerClient({ cookies });
-    const { data: { session } } = await supabase.auth.getSession();
+    const supabase = createClient();
+    const { data: { user } } = await supabase.auth.getUser();
     
-    if (!session) {
+    if (!user) {
       return NextResponse.json(
         { error: 'Neautorizat' },
         { status: 401 }
@@ -61,7 +60,7 @@ export async function POST(request: Request) {
     const product: Omit<Product, 'id' | 'created_at' | 'updated_at'> = await request.json();
     
     // Validate required fields
-    if (!product.name || !product.price || !product.category) {
+    if (!product.name || !product.price || !product.category_id) {
       return NextResponse.json(
         { error: 'Numele, prețul și categoria sunt obligatorii' },
         { status: 400 }
@@ -72,7 +71,7 @@ export async function POST(request: Request) {
       .from('products')
       .insert([{
         ...product,
-        created_by: session.user.id,
+        created_by: user.id,
       }])
       .select()
       .single();

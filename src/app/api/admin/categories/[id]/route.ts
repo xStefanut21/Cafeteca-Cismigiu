@@ -1,5 +1,4 @@
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+import { createClient } from '@/utils/supabase/server';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
@@ -16,10 +15,10 @@ export async function GET(
 ) {
   const { id } = await context.params;
   try {
-    const supabase = createRouteHandlerClient({ cookies });
-    const { data: { session } } = await supabase.auth.getSession();
+    const supabase = createClient();
+    const { data: { user } } = await supabase.auth.getUser();
     
-    if (!session) {
+    if (!user) {
       return NextResponse.json(
         { error: 'Neautorizat' },
         { status: 401 }
@@ -56,10 +55,10 @@ export async function PUT(
 ) {
   const { id } = await context.params;
   try {
-    const supabase = createRouteHandlerClient({ cookies });
-    const { data: { session } } = await supabase.auth.getSession();
+    const supabase = createClient();
+    const { data: { user } } = await supabase.auth.getUser();
     
-    if (!session) {
+    if (!user) {
       return NextResponse.json(
         { error: 'Neautorizat' },
         { status: 401 }
@@ -98,7 +97,7 @@ export async function PUT(
       .update({
         ...updates,
         updated_at: new Date().toISOString(),
-        updated_by: session.user.id,
+        updated_by: user.id,
       })
       .eq('id', id)
       .select()
@@ -122,10 +121,10 @@ export async function DELETE(
 ) {
   const { id } = await context.params;
   try {
-    const supabase = createRouteHandlerClient({ cookies });
-    const { data: { session } } = await supabase.auth.getSession();
+    const supabase = createClient();
+    const { data: { user } } = await supabase.auth.getUser();
     
-    if (!session) {
+    if (!user) {
       return NextResponse.json(
         { error: 'Neautorizat' },
         { status: 401 }
@@ -168,7 +167,7 @@ export async function DELETE(
       .update({
         is_active: false,
         updated_at: new Date().toISOString(),
-        updated_by: session.user.id,
+        updated_by: user.id,
       })
       .eq('id', id);
 

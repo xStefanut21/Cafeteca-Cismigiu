@@ -1,6 +1,5 @@
 import Image from 'next/image';
-import { Users, Coffee, Heart, Clock, MapPin, Phone, Mail } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Users, Coffee, Heart } from 'lucide-react';
 
 export default function AboutPage() {
   const teamMembers = [
