@@ -58,7 +58,7 @@ export default function MenuPage() {
     document.body.style.overflow = 'unset';
   };
 
-  // Fetch data
+  // Fetch data and set up real-time subscriptions
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -92,6 +92,46 @@ export default function MenuPage() {
     };
 
     fetchData();
+
+    // Set up real-time subscriptions for categories
+    const categoriesSubscription = supabase
+      .channel('categories-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'categories',
+        },
+        (payload) => {
+          console.log('Categories change:', payload);
+          fetchData(); // Refetch data on any change
+        }
+      )
+      .subscribe();
+
+    // Set up real-time subscriptions for products
+    const productsSubscription = supabase
+      .channel('products-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'products',
+        },
+        (payload) => {
+          console.log('Products change:', payload);
+          fetchData(); // Refetch data on any change
+        }
+      )
+      .subscribe();
+
+    // Cleanup subscriptions on unmount
+    return () => {
+      categoriesSubscription.unsubscribe();
+      productsSubscription.unsubscribe();
+    };
   }, []);
 
   if (isLoading) {
