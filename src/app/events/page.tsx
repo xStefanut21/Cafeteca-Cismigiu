@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Event, mockEvents } from '@/types/events';
+import { mockEvents } from '@/types/events';
 import { EventCard } from '@/components/events/EventCard';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';

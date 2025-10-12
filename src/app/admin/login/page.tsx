@@ -42,18 +42,20 @@ export default function LoginPage() {
       
       toast.success('Autentificare reușită!');
       router.push('/admin/dashboard');
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error signing in:', error);
       
-      if (error.message.includes('Invalid login credentials')) {
+      const errorMessage = error instanceof Error ? error.message : 'A apărut o eroare la autentificare.';
+      
+      if (errorMessage.includes('Invalid login credentials')) {
         toast.error('Email sau parolă incorecte. Vă rugăm să încercați din nou.');
-      } else if (error.message.includes('Email not confirmed')) {
+      } else if (errorMessage.includes('Email not confirmed')) {
         toast.error('Vă rugăm să vă confirmați adresa de email înainte de a vă autentifica.');
-      } else if (error.message.includes('Too many requests')) {
+      } else if (errorMessage.includes('Too many requests')) {
         toast.error('Prea multe încercări eșuate. Vă rugăm să așteptați puțin înainte de a încerca din nou.');
-      } else if (error.message.includes('Network error')) {
+      } else if (errorMessage.includes('Network error')) {
         toast.error('Eroare de conexiune la server. Vă rugăm să verificați conexiunea la internet.');
-      } else if (error.message.includes('User not found')) {
+      } else if (errorMessage.includes('User not found')) {
         toast.error('Nu există niciun cont asociat acestui email.');
       } else {
         toast.error('A apărut o eroare la autentificare. Vă rugăm să încercați din nou mai târziu.');

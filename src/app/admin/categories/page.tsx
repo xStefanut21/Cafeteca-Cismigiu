@@ -155,7 +155,7 @@ export default function CategoriesPage() {
       };
 
       if (isNew) {
-        const { data, error } = await supabase
+        const { error } = await supabase
           .from('categories')
           .insert([{ ...categoryData }])
           .select();
