@@ -3,18 +3,11 @@ import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 
-type Category = {
-  id?: string;
-  name: string;
-  description?: string;
-  is_active: boolean;
-};
-
 export async function POST(request: Request) {
   const { name, description, is_active } = await request.json();
 
   try {
-    const supabase = await createClient();
+    const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) {
@@ -43,7 +36,7 @@ export async function POST(request: Request) {
 
 export async function GET() {
   try {
-    const supabase = await createClient();
+    const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) {
