@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
+import Image from 'next/image';
 import { supabase } from '@/lib/supabase';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -184,11 +185,14 @@ export default function MenuPage() {
               onClick={(e) => e.stopPropagation()}
             >
               {selectedProduct.image_url && (
-                <div className="h-64 overflow-hidden">
-                  <img
+                <div className="relative h-64 w-full overflow-hidden">
+                  <Image
                     src={selectedProduct.image_url}
                     alt={selectedProduct.name}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    priority
                   />
                 </div>
               )}

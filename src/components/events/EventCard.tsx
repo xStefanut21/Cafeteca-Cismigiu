@@ -1,7 +1,8 @@
-import { Event } from '@/types/events';
+import type { Event } from '@/types/events';
 import { format } from 'date-fns';
 import { ro } from 'date-fns/locale';
 import { Calendar, Clock, MapPin, Users } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 
@@ -19,10 +20,12 @@ export function EventCard({ event, className }: EventCardProps) {
     <div className={`bg-white rounded-lg shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow duration-300 ${className}`}>
       <div className="h-48 bg-amber-100 relative">
         {event.image ? (
-          <img
+          <Image
             src={event.image}
             alt={event.title}
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-amber-800">

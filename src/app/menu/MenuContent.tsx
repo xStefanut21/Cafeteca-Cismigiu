@@ -22,8 +22,8 @@ export function MenuContent({ initialCategories, initialMenuItems }: MenuContent
     popular: false,
   });
   const [showScrollToTop, setShowScrollToTop] = useState(false);
-  const [categories, setCategories] = useState<MenuCategory[]>(initialCategories);
-  const [menuItems, setMenuItems] = useState<MenuItem[]>(initialMenuItems);
+  const [categories] = useState<MenuCategory[]>(initialCategories);
+  const [menuItems] = useState<MenuItem[]>(initialMenuItems);
 
   // Handle scroll to show/hide scroll to top button
   useEffect(() => {
