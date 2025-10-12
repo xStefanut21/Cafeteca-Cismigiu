@@ -123,20 +123,21 @@ export const config = {
   ],
 };
 
-// Add this type definition if you have a database.types.ts file
+// Import the Database type from your generated types if available
+// import { Database } from '@/types/database.types';
+
+// Or define a basic Database type with proper types
+interface DatabaseTable {
+  Row: Record<string, unknown>;
+  Insert: Record<string, unknown>;
+  Update: Record<string, unknown>;
+}
+
 type Database = {
   public: {
-    Tables: {
-      [key: string]: any;
-    };
-    Views: {
-      [key: string]: any;
-    };
-    Functions: {
-      [key: string]: any;
-    };
-    Enums: {
-      [key: string]: any;
-    };
+    Tables: Record<string, DatabaseTable>;
+    Views: Record<string, unknown>;
+    Functions: Record<string, unknown>;
+    Enums: Record<string, string[]>;
   };
 };
