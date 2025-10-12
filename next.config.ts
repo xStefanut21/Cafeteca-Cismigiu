@@ -7,7 +7,9 @@ const nextConfig: NextConfig = {
     domains: ['your-supabase-url.supabase.co'], // Replace with your Supabase URL
   },
   experimental: {
-    serverActions: true,
+    serverActions: {
+      bodySizeLimit: '2mb',
+    },
   },
 };
 
