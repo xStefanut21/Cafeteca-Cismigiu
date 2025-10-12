@@ -25,12 +25,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Only run on client-side
     if (typeof window === 'undefined') return;
 
-    // Check for existing session on initial load
-    const initializeAuth = async () => {
+    // Get the current session
+    const getInitialSession = async () => {
       try {
         setLoading(true);
-        
-        // Get the current session
         const { data: { session }, error } = await supabase.auth.getSession();
         
         if (error) throw error;
@@ -60,14 +58,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
     };
 
-    initializeAuth();
+    getInitialSession();
 
     // Set up auth state change listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event: string, session: Session | null) => {
+      (event: string, currentSession: Session | null) => {
         if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
-          setSession(session);
-          setUser(session?.user ?? null);
+          setSession(currentSession);
+          setUser(currentSession?.user ?? null);
         } else if (event === 'SIGNED_OUT') {
           setSession(null);
           setUser(null);
@@ -81,7 +79,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => {
       subscription.unsubscribe();
     };
-  }, [supabase.auth]);
+  }, []);
 
   const signIn = async (email: string, password: string, rememberMe: boolean = false) => {
     try {
