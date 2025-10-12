@@ -1,6 +1,6 @@
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 
@@ -14,9 +14,10 @@ type Product = {
 };
 
 export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await context.params;
   try {
     const supabase = createRouteHandlerClient({ cookies });
     const { data: { session } } = await supabase.auth.getSession();
@@ -31,7 +32,7 @@ export async function GET(
     const { data: product, error } = await supabase
       .from('products')
       .select('*')
-      .eq('id', params.id)
+      .eq('id', id)
       .single();
 
     if (error) throw error;
@@ -53,9 +54,10 @@ export async function GET(
 }
 
 export async function PUT(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await context.params;
   try {
     const supabase = createRouteHandlerClient({ cookies });
     const { data: { session } } = await supabase.auth.getSession();
@@ -84,7 +86,7 @@ export async function PUT(
         updated_at: new Date().toISOString(),
         updated_by: session.user.id,
       })
-      .eq('id', params.id)
+      .eq('id', id)
       .select()
       .single();
 
@@ -101,9 +103,10 @@ export async function PUT(
 }
 
 export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await context.params;
   try {
     const supabase = createRouteHandlerClient({ cookies });
     const { data: { session } } = await supabase.auth.getSession();
@@ -119,7 +122,7 @@ export async function DELETE(
     const { data: product, error: fetchError } = await supabase
       .from('products')
       .select('id')
-      .eq('id', params.id)
+      .eq('id', id)
       .single();
 
     if (fetchError || !product) {
@@ -137,7 +140,7 @@ export async function DELETE(
         updated_at: new Date().toISOString(),
         updated_by: session.user.id,
       })
-      .eq('id', params.id);
+      .eq('id', id);
 
     if (updateError) throw updateError;
 

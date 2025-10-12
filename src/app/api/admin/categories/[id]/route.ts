@@ -170,7 +170,7 @@ export async function DELETE(
         updated_at: new Date().toISOString(),
         updated_by: session.user.id,
       })
-      .eq('id', params.id);
+      .eq('id', id);
 
     if (updateError) throw updateError;
 
