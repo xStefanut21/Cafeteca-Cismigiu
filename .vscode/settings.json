@@ -1,0 +1,25 @@
+{
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "tailwindCSS.includeLanguages": {
+    "plaintext": "html"
+  },
+  "editor.autoClosingQuotes": "always",
+  "editor.autoClosingBrackets": "always",
+  "editor.autoClosingTags": true,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "tailwindCSS.experimental.classRegex": [
+    ["class=\"([^\"]*)\"", "[^\"'`\s]"],
+    ["class:([^\s}]+)", "[^\"'`\s]"],
+    ["class`([^`]*)`", "[^\"'`\s]"],
+    ["class\\(([^)]*)\\)", "[^\"'`\s]"],
+    ["class\\s*=\\s*'([^']*)'", "[^\"'`\s]"]
+  ]
+}

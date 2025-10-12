@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: cafeteca-cismigiu
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 18.x
+      - key: NPM_CONFIG_PRODUCTION
+        value: "false"
+      - key: NEXT_TELEMETRY_DISABLED
+        value: "1"
+    autoDeploy: true

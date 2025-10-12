@@ -1,0 +1,25 @@
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+
+export function CallToAction() {
+  return (
+    <section className="bg-amber-800 text-white py-16">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 className="text-3xl md:text-4xl font-bold mb-6">
+          Vino să ne vizitezi astăzi!
+        </h2>
+        <p className="text-xl mb-8 max-w-2xl mx-auto">
+          Te așteptăm la o cafea excelentă și un ambient plăcut în centrul Bucureștiului.
+        </p>
+        <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <Button asChild size="lg" className="text-lg bg-white text-amber-900 hover:bg-amber-100">
+            <Link href="/contact">Cum ne găsești</Link>
+          </Button>
+          <Button asChild variant="outline" size="lg" className="text-lg border-white text-white hover:bg-amber-700">
+            <Link href="/about">Despre noi</Link>
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+}
