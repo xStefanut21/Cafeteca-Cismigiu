@@ -1,6 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
-// Icons are used in the JSX below
+
 
 const ContactInfo = () => {
   return (
