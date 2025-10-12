@@ -1,4 +1,5 @@
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
+// All icons are being used in the component
 
 const ContactInfo = () => {
   return (
