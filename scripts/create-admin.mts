@@ -60,7 +60,6 @@ async function createOrUpdateAdminUser(email: string, password: string): Promise
         // Update user with new password
         const { error: updateError } = await supabase.auth.admin.updateUserById(userId, {
           password,
-          email_confirm: true,
           user_metadata: { name: 'Admin User' }
         });
         
@@ -72,7 +71,6 @@ async function createOrUpdateAdminUser(email: string, password: string): Promise
         const { data: authData, error: createError } = await supabase.auth.admin.createUser({
           email,
           password,
-          email_confirm: true,
           user_metadata: { name: 'Admin User' }
         });
         

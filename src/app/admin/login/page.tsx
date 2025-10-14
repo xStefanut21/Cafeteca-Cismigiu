@@ -49,8 +49,6 @@ export default function LoginPage() {
       
       if (errorMessage.includes('Invalid login credentials')) {
         toast.error('Email sau parolă incorecte. Vă rugăm să încercați din nou.');
-      } else if (errorMessage.includes('Email not confirmed')) {
-        toast.error('Vă rugăm să vă confirmați adresa de email înainte de a vă autentifica.');
       } else if (errorMessage.includes('Too many requests')) {
         toast.error('Prea multe încercări eșuate. Vă rugăm să așteptați puțin înainte de a încerca din nou.');
       } else if (errorMessage.includes('Network error')) {
