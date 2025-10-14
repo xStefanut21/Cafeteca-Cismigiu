@@ -146,6 +146,7 @@ export default function MenuPage() {
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
       <div className="container mx-auto px-4 py-12 max-w-7xl">
         <h2 className="text-3xl font-bold text-gray-800 mb-2 text-center">Alege din meniul nostru</h2>
+        <p className="text-lg font-bold text-amber-600 mb-4 text-center animate-bounce">Nu uita ! Comanda se face la bar ! Mulțumim !</p>
         <div className="w-24 h-1 bg-amber-600 mx-auto mb-12"></div>
 
         {categories?.map((category: Category) => {
