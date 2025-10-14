@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   output: 'standalone',
   images: {
-    domains: ['your-supabase-url.supabase.co'], // Replace with your Supabase URL
+    domains: ['dqrixakjbqktzonntcyc.supabase.co'], // Your Supabase URL
   },
   experimental: {
     serverActions: {

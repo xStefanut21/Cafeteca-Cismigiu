@@ -6,10 +6,10 @@ export interface Event {
   time: string;
   location: string;
   image?: string;
-  price?: number;
   isFeatured?: boolean;
   capacity?: number;
-  registrationLink?: string;
+  contactphone?: string;
+  contactemail?: string;
 }
 
 export const mockEvents: Event[] = [
@@ -20,7 +20,6 @@ export const mockEvents: Event[] = [
     date: '2023-11-15',
     time: '20:00',
     location: 'Cafeteca Cismigiu',
-    price: 25,
     isFeatured: true,
     capacity: 30
   },
@@ -31,7 +30,6 @@ export const mockEvents: Event[] = [
     date: '2023-11-22',
     time: '18:00',
     location: 'Cafeteca Cismigiu',
-    price: 50,
     capacity: 10
   },
   {
@@ -41,7 +39,6 @@ export const mockEvents: Event[] = [
     date: '2023-12-05',
     time: '19:00',
     location: 'Cafeteca Cismigiu',
-    price: 35,
     isFeatured: true,
     capacity: 20
   }

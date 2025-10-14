@@ -4,11 +4,12 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import ProtectedRoute from '@/components/admin/ProtectedRoute';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Package, List } from 'lucide-react';
+import { Package, List, Calendar } from 'lucide-react';
 
 export default function DashboardPage() {
   const [productCount, setProductCount] = useState(0);
   const [categoryCount, setCategoryCount] = useState(0);
+  const [eventCount, setEventCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -39,15 +40,30 @@ export default function DashboardPage() {
           throw categoriesError;
         }
         
+        // Fetch active events
+        const { data: events, error: eventsError } = await supabase
+          .from('events')
+          .select('*')
+          .eq('is_active', true);
+
+        console.log('[DEBUG] Events data:', events);
+        if (eventsError) {
+          console.error('Events error:', eventsError);
+          throw eventsError;
+        }
+        
         setProductCount(products?.length || 0);
         setCategoryCount(categories?.length || 0);
+        setEventCount(events?.length || 0);
         
         console.log('[DEBUG] Product count:', products?.length || 0);
         console.log('[DEBUG] Category count:', categories?.length || 0);
+        console.log('[DEBUG] Event count:', events?.length || 0);
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
         setProductCount(0);
         setCategoryCount(0);
+        setEventCount(0);
       } finally {
         setIsLoading(false);
       }
@@ -75,7 +91,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {/* Products Card */}
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -104,6 +120,22 @@ export default function DashboardPage() {
               <div className="text-3xl font-bold">{categoryCount}</div>
               <p className="text-sm text-muted-foreground">
                 categorii active în meniu
+              </p>
+            </CardContent>
+          </Card>
+
+          {/* Events Card */}
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Evenimente Active
+              </CardTitle>
+              <Calendar className="h-5 w-5 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold">{eventCount}</div>
+              <p className="text-sm text-muted-foreground">
+                evenimente programate
               </p>
             </CardContent>
           </Card>

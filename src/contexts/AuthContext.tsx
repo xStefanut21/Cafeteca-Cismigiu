@@ -40,10 +40,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           // If remember me is not checked, clear the session on page refresh
           const rememberMe = localStorage.getItem('rememberMe') === 'true';
           if (!rememberMe) {
-            // If not remembering, clear the session on next page load
-            window.addEventListener('beforeunload', () => {
-              supabase.auth.signOut().catch(console.error);
-            });
+            // If not remembering, the session will naturally expire
+            // No need for manual cleanup that can cause errors
+            console.log('Session will expire naturally (remember me not checked)');
           }
         } else {
           setSession(null);
@@ -70,6 +69,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           setSession(null);
           setUser(null);
           localStorage.removeItem('rememberMe');
+
+          // Only redirect if we're currently on an admin page
+          if (typeof window !== 'undefined' && window.location.pathname.startsWith('/admin')) {
+            router.push('/admin/login');
+          }
         }
         
         setLoading(false);
@@ -109,11 +113,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signOut = async () => {
-    await supabase.auth.signOut();
-    localStorage.removeItem('rememberMe');
-    setSession(null);
-    setUser(null);
-    router.push('/admin/login');
+    try {
+      await supabase.auth.signOut();
+      localStorage.removeItem('rememberMe');
+      setSession(null);
+      setUser(null);
+      router.push('/admin/login');
+    } catch (error) {
+      // If signOut fails (e.g., session already invalid), just clear local state
+      console.warn('Sign out warning (session may already be invalid):', error);
+      localStorage.removeItem('rememberMe');
+      setSession(null);
+      setUser(null);
+      router.push('/admin/login');
+    }
   };
 
   const value = {

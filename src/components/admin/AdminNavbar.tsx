@@ -11,6 +11,7 @@ const navigation = [
   { name: 'Dashboard', href: '/admin/dashboard' },
   { name: 'Produse', href: '/admin/products' },
   { name: 'Categorii', href: '/admin/categories' },
+  { name: 'Evenimente', href: '/admin/events' },
 ];
 
 export default function AdminNavbar() {

@@ -1,10 +1,8 @@
 import type { Event } from '@/types/events';
 import { format } from 'date-fns';
 import { ro } from 'date-fns/locale';
-import { Calendar, Clock, MapPin, Users } from 'lucide-react';
+import { Calendar, Clock, MapPin, Users, Phone, Mail } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { Button } from '../ui/button';
 
 interface EventCardProps {
   event: Event;
@@ -26,6 +24,7 @@ export function EventCard({ event, className }: EventCardProps) {
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority={true}
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-amber-800">
@@ -42,11 +41,6 @@ export function EventCard({ event, className }: EventCardProps) {
       <div className="p-6">
         <div className="flex justify-between items-start mb-4">
           <h3 className="text-xl font-bold text-gray-900">{event.title}</h3>
-          {event.price && (
-            <span className="bg-amber-100 text-amber-800 text-sm font-semibold px-3 py-1 rounded-full">
-              {event.price} RON
-            </span>
-          )}
         </div>
         
         <p className="text-gray-600 mb-6">{event.description}</p>
@@ -72,11 +66,25 @@ export function EventCard({ event, className }: EventCardProps) {
           )}
         </div>
         
-        <Button asChild className="w-full bg-amber-700 hover:bg-amber-800">
-          <Link href={event.registrationLink || '#'}>
-            Rezervă acum
-          </Link>
-        </Button>
+        {/* Contact Information */}
+        <div className="space-y-2 mb-6 pt-4 border-t border-gray-100">
+          {event.contactphone && (
+            <div className="flex items-center text-gray-700">
+              <Phone className="h-4 w-4 text-amber-600 mr-2" />
+              <a href={`tel:${event.contactphone}`} className="text-amber-600 hover:underline">
+                {event.contactphone}
+              </a>
+            </div>
+          )}
+          {event.contactemail && (
+            <div className="flex items-center text-gray-700">
+              <Mail className="h-4 w-4 text-amber-600 mr-2" />
+              <a href={`mailto:${event.contactemail}`} className="text-amber-600 hover:underline">
+                {event.contactemail}
+              </a>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
