@@ -191,9 +191,9 @@ export default function CategoriesPage() {
       );
     })
     .sort((a, b) => {
-      // Sort by is_active first (active first), then by name
+      // Sort by is_active first (active first), then by name descending
       if (a.is_active === b.is_active) {
-        return a.name.localeCompare(b.name);
+        return b.name.localeCompare(a.name); // Changed to descending order
       }
       return a.is_active ? -1 : 1;
     });

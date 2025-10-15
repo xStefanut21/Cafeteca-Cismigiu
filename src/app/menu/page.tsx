@@ -76,7 +76,7 @@ export default function MenuPage() {
           .from('categories')
           .select('*')
           .eq('is_active', true)
-          .order('name');
+          .order('name', { ascending: false });
 
         if (productsError || categoriesError) {
           throw productsError || categoriesError;

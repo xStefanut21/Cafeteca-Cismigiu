@@ -102,6 +102,28 @@ export default function ProductsPage() {
     setIsDialogOpen(true);
   };
 
+  const handleToggleAvailability = async (id: string, currentStatus: boolean) => {
+    try {
+      const { error } = await supabase
+        .from('products')
+        .update({ is_available: !currentStatus })
+        .eq('id', id);
+
+      if (error) throw error;
+
+      setProducts(products.map(p => p.id === id ? {
+        ...p,
+        isAvailable: !currentStatus,
+        is_available: !currentStatus
+      } : p));
+
+      toast.success(`Produs ${!currentStatus ? 'activat' : 'dezactivat'} cu succes!`);
+    } catch (error) {
+      console.error('Error updating product availability:', error);
+      toast.error('Eroare la actualizarea disponibilității produsului');
+    }
+  };
+
   const handleDelete = async (id: string) => {
     if (window.confirm('Sunteți sigur că doriți să ștergeți acest produs?')) {
       try {
@@ -299,9 +321,6 @@ export default function ProductsPage() {
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Preț
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Stoc
-                  </th>
                   <th scope="col" className="relative px-6 py-3">
                     <span className="sr-only">Acțiuni</span>
                   </th>
@@ -342,27 +361,33 @@ export default function ProductsPage() {
                       <div className="text-sm text-gray-900">{product.price.toFixed(2)} RON</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                        product.isAvailable 
-                          ? 'bg-green-100 text-green-800' 
-                          : 'bg-red-100 text-red-800'
-                      }`}>
-                        {product.isAvailable ? 'În stoc' : 'Stoc epuizat'}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <button
-                        onClick={() => handleEdit(product)}
-                        className="text-amber-600 hover:text-amber-900 mr-4"
-                      >
-                        <Edit className="h-4 w-4" />
-                      </button>
-                      <button
-                        onClick={() => handleDelete(product.id)}
-                        className="text-red-600 hover:text-red-900"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </button>
+                      <div className="ml-2 flex-shrink-0 flex space-x-2">
+                        <button
+                          type="button"
+                          onClick={() => handleToggleAvailability(product.id, product.isAvailable)}
+                          className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
+                            product.isAvailable 
+                              ? 'bg-green-100 text-green-800 hover:bg-green-200' 
+                              : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
+                          }`}
+                        >
+                          {product.isAvailable ? 'Activ' : 'Inactiv'}
+                        </button>
+                        <button
+                          onClick={() => handleEdit(product)}
+                          className="p-1.5 text-gray-400 hover:text-amber-600 rounded-full hover:bg-amber-50"
+                          title="Editează"
+                        >
+                          <Edit className="h-4 w-4" />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(product.id)}
+                          className="p-1.5 text-gray-400 hover:text-red-600 rounded-full hover:bg-red-50"
+                          title="Șterge"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
