@@ -8,7 +8,7 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Contact</h3>
             <address className="not-italic">
               <p className="mb-2">Cafeteca Cismigiu</p>
-              <p className="mb-2">Strada Regina Elisabeta 61</p>
+              <p className="mb-2">Bulevardul Regina Elisabeta 61</p>
               <p className="mb-2">București, România</p>
               <p className="mb-2">
                 <a href="tel:+40748380633" className="hover:underline">
@@ -31,16 +31,32 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Program</h3>
             <ul className="space-y-2">
               <li className="flex justify-between">
-                <span>Luni - Vineri</span>
-                <span>07:30 - 21:30</span>
+                <span>Luni</span>
+                <span>07:30–20:30</span>
+              </li>
+              <li className="flex justify-between">
+                <span>Marți</span>
+                <span>07:30–20:30</span>
+              </li>
+              <li className="flex justify-between">
+                <span>Miercuri</span>
+                <span>07:30–20:30</span>
+              </li>
+              <li className="flex justify-between">
+                <span>Joi</span>
+                <span>07:30–20:30</span>
+              </li>
+              <li className="flex justify-between">
+                <span>Vineri</span>
+                <span>07:30–21:30</span>
               </li>
               <li className="flex justify-between">
                 <span>Sâmbătă</span>
-                <span>08:30 - 21:30</span>
+                <span>08:30–21:30</span>
               </li>
               <li className="flex justify-between">
                 <span>Duminică</span>
-                <span>08:30 - 20:30</span>
+                <span>08:30–20:30</span>
               </li>
             </ul>
           </div>

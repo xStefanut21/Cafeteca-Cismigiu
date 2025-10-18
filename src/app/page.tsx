@@ -1,12 +1,12 @@
 import { HeroSection } from '@/components/home/HeroSection';
-import { FeaturedCategories } from '@/components/home/FeaturedCategories';
+import FeaturedCategoriesDynamic from '@/components/home/FeaturedCategoriesDynamic';
 import { CallToAction } from '@/components/home/CallToAction';
 
 export default function Home() {
   return (
     <main className="flex flex-col gap-16">
       <HeroSection />
-      <FeaturedCategories />
+      <FeaturedCategoriesDynamic />
       <CallToAction />
     </main>
   );

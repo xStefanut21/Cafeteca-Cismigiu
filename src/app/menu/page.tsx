@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import { supabase } from '@/lib/supabase';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -42,6 +43,8 @@ export default function MenuPage() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState<SelectedProduct | null>(null);
+  const searchParams = useSearchParams();
+  const categoryRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
   const modalRef = useRef<HTMLDivElement>(null);
 
   const handleProductClick = (product: Product) => {
@@ -57,6 +60,20 @@ export default function MenuPage() {
     setSelectedProduct(null);
     document.body.style.overflow = 'unset';
   };
+
+  // Scroll to category when URL parameter is present
+  useEffect(() => {
+    const categoryId = searchParams.get('category');
+    if (categoryId && categoryRefs.current[categoryId]) {
+      // Wait a bit for the page to render, then scroll
+      setTimeout(() => {
+        categoryRefs.current[categoryId]?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }, 100);
+    }
+  }, [searchParams, categories]);
 
   // Fetch data and set up real-time subscriptions
   useEffect(() => {
@@ -156,7 +173,13 @@ export default function MenuPage() {
           if (categoryProducts.length === 0) return null;
 
           return (
-            <div key={category.id} className="mb-16">
+            <div
+              key={category.id}
+              ref={(el) => {
+                categoryRefs.current[category.id] = el;
+              }}
+              className="mb-16 scroll-mt-8"
+            >
               <div className="flex items-center mb-8">
                 <h2 className="text-3xl font-bold text-gray-800">{category.name}</h2>
                 <div className="flex-1 ml-4 h-px bg-gradient-to-r from-amber-600 to-transparent"></div>

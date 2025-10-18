@@ -11,7 +11,7 @@ const ContactInfo = () => {
           <MapPin className="h-6 w-6 text-amber-700 mt-1 flex-shrink-0" />
           <div>
             <h3 className="font-medium text-gray-900">Adresă</h3>
-            <p className="text-gray-600">Strada Regina Elisabeta 61, București</p>
+            <p className="text-gray-600">Bulevardul Regina Elisabeta 61, București</p>
           </div>
         </div>
         
@@ -44,16 +44,32 @@ const ContactInfo = () => {
             <h3 className="font-medium text-gray-900">Program</h3>
             <ul className="text-gray-600 space-y-1">
               <li className="flex justify-between max-w-xs">
-                <span>Luni - Vineri:</span>
-                <span>07:30 - 21:30</span>
+                <span>Luni:</span>
+                <span>07:30–20:30</span>
+              </li>
+              <li className="flex justify-between max-w-xs">
+                <span>Marți:</span>
+                <span>07:30–20:30</span>
+              </li>
+              <li className="flex justify-between max-w-xs">
+                <span>Miercuri:</span>
+                <span>07:30–20:30</span>
+              </li>
+              <li className="flex justify-between max-w-xs">
+                <span>Joi:</span>
+                <span>07:30–20:30</span>
+              </li>
+              <li className="flex justify-between max-w-xs">
+                <span>Vineri:</span>
+                <span>07:30–21:30</span>
               </li>
               <li className="flex justify-between max-w-xs">
                 <span>Sâmbătă:</span>
-                <span>08:30 - 21:30</span>
+                <span>08:30–21:30</span>
               </li>
               <li className="flex justify-between max-w-xs">
                 <span>Duminică:</span>
-                <span>08:30 - 20:30</span>
+                <span>08:30–20:30</span>
               </li>
             </ul>
           </div>

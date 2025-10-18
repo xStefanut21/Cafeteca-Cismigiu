@@ -12,6 +12,7 @@ const navigation = [
   { name: 'Produse', href: '/admin/products' },
   { name: 'Categorii', href: '/admin/categories' },
   { name: 'Evenimente', href: '/admin/events' },
+  { name: 'Pagina Acasă', href: '/admin/home' },
 ];
 
 export default function AdminNavbar() {
