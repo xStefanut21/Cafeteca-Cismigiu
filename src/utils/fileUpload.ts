@@ -14,7 +14,7 @@ export async function uploadHomeImage(file: File, id?: string): Promise<UploadRe
     const filePath = `home-sections/${fileName}`;
 
     // Upload file to Supabase storage
-    const { data, error: uploadError } = await supabase.storage
+    const { data: _data, error: uploadError } = await supabase.storage
       .from('home-images')
       .upload(filePath, file, {
         cacheControl: '3600',
@@ -73,7 +73,7 @@ export async function uploadEventImage(file: File, eventId?: string): Promise<Up
     const filePath = `events/${fileName}`;
 
     // Upload file to Supabase storage
-    const { data, error: uploadError } = await supabase.storage
+    const { data: _data, error: uploadError } = await supabase.storage
       .from('event-images')
       .upload(filePath, file, {
         cacheControl: '3600',

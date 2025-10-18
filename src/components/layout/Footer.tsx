@@ -7,9 +7,9 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Contact</h3>
             <address className="not-italic">
-              <p className="mb-2">Cafeteca Cismigiu</p>
-              <p className="mb-2">Bulevardul Regina Elisabeta 61</p>
-              <p className="mb-2">București, România</p>
+              <p className="mb-2 text-amber-100">Cafeteca Cismigiu</p>
+              <p className="mb-2 text-amber-100">Bulevardul Regina Elisabeta 61</p>
+              <p className="mb-2 text-amber-100">București, România</p>
               <p className="mb-2">
                 <a href="tel:+40748380633" className="hover:underline">
                   +40 748 380 633
@@ -89,7 +89,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="mt-8 pt-8 border-t border-amber-800 text-center">
-          <p>© {new Date().getFullYear()} Cafeteca Cismigiu. Toate drepturile rezervate.</p>
+          <p className="text-amber-100">© {new Date().getFullYear()} Cafeteca Cismigiu. Toate drepturile rezervate.</p>
         </div>
       </div>
     </footer>

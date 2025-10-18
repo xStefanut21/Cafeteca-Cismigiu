@@ -214,7 +214,7 @@ export default function AboutPage() {
                   Spațiu Viu și Comunitate
                 </h2>
                 <div className="max-w-3xl mx-auto space-y-4 text-lg text-amber-100">
-                  <p>
+                  <p className="text-amber-100">
                     Cafeteca Cismigiu este un spațiu vibrant unde găzduim:
                   </p>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
@@ -225,7 +225,7 @@ export default function AboutPage() {
                     <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">Întâlniri</div>
                     <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">Expoziții</div>
                   </div>
-                  <p className="pt-4">
+                  <p className="pt-4 text-amber-100">
                     Aici oamenii se conectează, schimbă idei și creează amintiri de neuitat.
                   </p>
                 </div>
